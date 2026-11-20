@@ -6,7 +6,7 @@
 <title>Tejas Rastogi – Software Developer &amp; Data Analyst</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #05080f;
@@ -23,7 +23,7 @@
   --accent-glow: rgba(34, 211, 238, 0.25);
   --accent-bg: rgba(34, 211, 238, 0.08);
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-mono: 'Fira Code', 'JetBrains Mono', ui-monospace, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -161,11 +161,15 @@ main {
 
 h1 {
   margin: 0;
-  font-size: clamp(26px, 4vw, 34px);
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  color: var(--text);
-  line-height: 1.15;
+  font-family: 'Fira Code', var(--font-mono);
+  font-size: clamp(24px, 3.8vw, 34px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #38bdf8;
+  line-height: 1.2;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
 }
 .subtitle {
   color: var(--text-muted);
@@ -174,18 +178,19 @@ h1 {
   font-weight: 500;
 }
 .terminal-line {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--accent);
-  min-height: 22px;
+  font-family: 'Fira Code', var(--font-mono);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #6ee7b7;
+  min-height: 24px;
   display: flex;
   align-items: center;
 }
 .cursor {
   display: inline-block;
   width: 8px;
-  height: 16px;
-  background: var(--accent);
+  height: 17px;
+  background: currentColor;
   margin-left: 4px;
   animation: blink 1s steps(1) infinite;
 }
@@ -814,11 +819,11 @@ footer {
   <section class="hero">
     <div class="hero-header">
       <div class="avatar-wrap">
-        <img src="./assets/profile.jpg" alt="Tejas Rastogi">
+        <img src="WhatsApp Image 2026-11-20 at 18.42.58.jpeg" alt="Tejas Rastogi">
         <span class="status-dot" title="Available for opportunities"></span>
       </div>
       <div>
-        <h1>TEJAS RASTOGI</h1>
+        <h1><span id="name-typewriter"></span><span class="cursor" id="name-cursor"></span></h1>
         <div class="subtitle">Software Developer · Backend, Data Analytics, AI &amp; Full-Stack</div>
         <div class="terminal-line">
           <span id="typewriter"></span><span class="cursor"></span>
@@ -1165,22 +1170,43 @@ function attachCardGlow() {
 renderTabs();
 renderArchive();
 
-// Typewriter Effect
-const roles = ["Backend Engineer", "Data Analyst", "AI Systems Builder", "Full-Stack Developer", "Quant Researcher"];
+// GitHub README Heading Typewriter ("I am Tejas Rastogi", repeat=false)
+const nameText = "I am Tejas Rastogi";
+const nameEl = document.getElementById("name-typewriter");
+const nameCursor = document.getElementById("name-cursor");
+let nameIdx = 0;
+function typeNameOnce() {
+  nameEl.textContent = nameText.slice(0, nameIdx);
+  if (nameIdx < nameText.length) {
+    nameIdx++;
+    setTimeout(typeNameOnce, 120);
+  } else {
+    setTimeout(() => { nameCursor.style.display = "none"; }, 1200);
+  }
+}
+typeNameOnce();
+
+// GitHub README Sub-lines Typewriter
+const roles = [
+  "Building microservices with Spring Boot & Kafka",
+  "Shipping RAG pipelines & autonomous AI agents",
+  "Turning ideas into real-time full-stack apps",
+  "Backtesting alpha signals with Python & Numba"
+];
 const twEl = document.getElementById("typewriter");
 let roleIdx = 0, charIdx = 0, deleting = false;
 function typeLoop() {
   const word = roles[roleIdx];
-  twEl.textContent = "> " + word.slice(0, charIdx);
+  twEl.textContent = word.slice(0, charIdx);
   if (!deleting && charIdx < word.length) {
     charIdx++;
-    setTimeout(typeLoop, 75);
+    setTimeout(typeLoop, 55);
   } else if (!deleting) {
     deleting = true;
-    setTimeout(typeLoop, 1500);
+    setTimeout(typeLoop, 1200);
   } else if (charIdx > 0) {
     charIdx--;
-    setTimeout(typeLoop, 38);
+    setTimeout(typeLoop, 30);
   } else {
     deleting = false;
     roleIdx = (roleIdx + 1) % roles.length;
